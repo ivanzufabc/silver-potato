@@ -18,9 +18,18 @@ END vending_machine_controller;
 
 ARCHITECTURE behavioral OF vending_machine_controller IS
 
-TYPE STATE is (S_0, S_5, S_10, S_15, S_20, S_25, S_30, S_35, S_40, S_45);
+CONSTANT S_0     : STD_LOGIC_VECTOR(9 downto 0) := "0000000001";
+CONSTANT S_5     : STD_LOGIC_VECTOR(9 downto 0) := "0000000010";
+CONSTANT S_10    : STD_LOGIC_VECTOR(9 downto 0) := "0000000100";
+CONSTANT S_15    : STD_LOGIC_VECTOR(9 downto 0) := "0000001000";
+CONSTANT S_20    : STD_LOGIC_VECTOR(9 downto 0) := "0000010000";
+CONSTANT S_25    : STD_LOGIC_VECTOR(9 downto 0) := "0000100000";
+CONSTANT S_30    : STD_LOGIC_VECTOR(9 downto 0) := "0001000000";
+CONSTANT S_35    : STD_LOGIC_VECTOR(9 downto 0) := "0010000000";
+CONSTANT S_40    : STD_LOGIC_VECTOR(9 downto 0) := "0100000000";
+CONSTANT S_45    : STD_LOGIC_VECTOR(9 downto 0) := "1000000000";
 
-SIGNAL current_state, next_state : STATE := S_0;
+SIGNAL current_state, next_state : STD_LOGIC_VECTOR(9 downto 0) := S_0;
 BEGIN
     fsm_update : PROCESS(clock, reset)
     BEGIN
