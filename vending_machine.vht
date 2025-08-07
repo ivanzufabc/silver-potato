@@ -31,30 +31,30 @@ USE ieee.std_logic_1164.all;
 ENTITY vending_machine_vhd_tst IS
 END vending_machine_vhd_tst;
 ARCHITECTURE vending_machine_arch OF vending_machine_vhd_tst IS
--- constants                                                 
--- signals                                                   
-SIGNAL CLOCK_50 : STD_LOGIC;
-SIGNAL HEX0 : STD_LOGIC_VECTOR(6 DOWNTO 0);
-SIGNAL HEX1 : STD_LOGIC_VECTOR(6 DOWNTO 0);
-SIGNAL HEX2 : STD_LOGIC_VECTOR(6 DOWNTO 0);
-SIGNAL HEX3 : STD_LOGIC_VECTOR(6 DOWNTO 0);
-SIGNAL HEX4 : STD_LOGIC_VECTOR(6 DOWNTO 0);
-SIGNAL HEX5 : STD_LOGIC_VECTOR(6 DOWNTO 0);
-SIGNAL KEY : STD_LOGIC_VECTOR(1 DOWNTO 0);
-SIGNAL SW : STD_LOGIC_VECTOR(2 DOWNTO 0);
-COMPONENT vending_machine
-	PORT (
-	CLOCK_50 : IN STD_LOGIC;
-	HEX0 : BUFFER STD_LOGIC_VECTOR(6 DOWNTO 0);
-	HEX1 : BUFFER STD_LOGIC_VECTOR(6 DOWNTO 0);
-	HEX2 : BUFFER STD_LOGIC_VECTOR(6 DOWNTO 0);
-	HEX3 : BUFFER STD_LOGIC_VECTOR(6 DOWNTO 0);
-	HEX4 : BUFFER STD_LOGIC_VECTOR(6 DOWNTO 0);
-	HEX5 : BUFFER STD_LOGIC_VECTOR(6 DOWNTO 0);
-	KEY : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
-	SW : IN STD_LOGIC_VECTOR(2 DOWNTO 0)
-	);
-END COMPONENT;
+	-- constants                                                 
+	-- signals                                                   
+	SIGNAL CLOCK_50 : STD_LOGIC;
+	SIGNAL HEX0 : STD_LOGIC_VECTOR(6 DOWNTO 0);
+	SIGNAL HEX1 : STD_LOGIC_VECTOR(6 DOWNTO 0);
+	SIGNAL HEX2 : STD_LOGIC_VECTOR(6 DOWNTO 0);
+	SIGNAL HEX3 : STD_LOGIC_VECTOR(6 DOWNTO 0);
+	SIGNAL HEX4 : STD_LOGIC_VECTOR(6 DOWNTO 0);
+	SIGNAL HEX5 : STD_LOGIC_VECTOR(6 DOWNTO 0);
+	SIGNAL KEY : STD_LOGIC_VECTOR(1 DOWNTO 0);
+	SIGNAL SW : STD_LOGIC_VECTOR(2 DOWNTO 0);
+	COMPONENT vending_machine
+		PORT (
+		CLOCK_50 : IN STD_LOGIC;
+		HEX0 : BUFFER STD_LOGIC_VECTOR(6 DOWNTO 0);
+		HEX1 : BUFFER STD_LOGIC_VECTOR(6 DOWNTO 0);
+		HEX2 : BUFFER STD_LOGIC_VECTOR(6 DOWNTO 0);
+		HEX3 : BUFFER STD_LOGIC_VECTOR(6 DOWNTO 0);
+		HEX4 : BUFFER STD_LOGIC_VECTOR(6 DOWNTO 0);
+		HEX5 : BUFFER STD_LOGIC_VECTOR(6 DOWNTO 0);
+		KEY : IN STD_LOGIC_VECTOR(1 DOWNTO 0);
+		SW : IN STD_LOGIC_VECTOR(2 DOWNTO 0)
+		);
+	END COMPONENT;
 BEGIN
 	i1 : vending_machine
 	PORT MAP (
@@ -69,18 +69,214 @@ BEGIN
 	KEY => KEY,
 	SW => SW
 	);
-init : PROCESS                                               
--- variable declarations                                     
-BEGIN                                                        
-        -- code that executes only once                      
-WAIT;                                                       
-END PROCESS init;                                           
-always : PROCESS                                              
--- optional sensitivity list                                  
--- (        )                                                 
--- variable declarations                                      
-BEGIN                                                         
-        -- code executes for every event on sensitivity list  
-WAIT;                                                        
-END PROCESS always;                                          
+	init : PROCESS                                               
+	-- variable declarations                                     
+		VARIABLE test_case : INTEGER := 25;
+	BEGIN                                                        
+			-- code that executes only once                      
+		KEY <= "11";
+		CASE test_case IS
+		WHEN 25 =>
+			SW <= "001";
+			WAIT FOR 100 ns;
+			btn_25a : FOR i IN 1 TO 5 GENERATE
+				KEY(0) <= '0';
+				WAIT FOR 100 ns;
+				KEY(0) <= '1';
+				WAIT FOR 100 ns;
+			END GENERATE btn_25a;
+
+			SW <= "010";
+			WAIT FOR 100 ns;
+			KEY(0) <= '0';
+			WAIT FOR 100 ns;
+			KEY(0) <= '1';
+			WAIT FOR 100 ns;
+			SW <= "001";
+			WAIT FOR 100 ns;
+			btn_25b : FOR i IN 1 TO 3 GENERATE
+				KEY(0) <= '0';
+				WAIT FOR 100 ns;
+				KEY(0) <= '1';
+				WAIT FOR 100 ns;
+			END GENERATE btn_25b;
+
+			SW <= "100";
+			WAIT FOR 100 ns;
+			KEY(0) <= '0';
+			WAIT FOR 100 ns;
+			KEY(0) <= '1';
+			WAIT FOR 100 ns;
+		
+		WHEN 30 =>
+			SW <= "001";
+			WAIT FOR 100 ns;
+			btn_30a : FOR i IN 1 TO 4 GENERATE
+				KEY(0) <= '0';
+				WAIT FOR 100 ns;
+				KEY(0) <= '1';
+				WAIT FOR 100 ns;
+			END GENERATE btn_30a;
+			SW <= "010";
+			WAIT FOR 100 ns;
+			KEY(0) <= '0';
+			WAIT FOR 100 ns;
+			KEY(0) <= '1';
+			WAIT FOR 100 ns;
+
+			SW <= "010";
+			WAIT FOR 100 ns;
+			btn_30b : FOR i IN 1 TO 3 GENERATE
+				KEY(0) <= '0';
+				WAIT FOR 100 ns;
+				KEY(0) <= '1';
+				WAIT FOR 100 ns;
+			END GENERATE btn_30b;
+
+			SW <= "001";
+			WAIT FOR 100 ns;
+			KEY(0) <= '0';
+			WAIT FOR 100 ns;
+			KEY(0) <= '1';
+			WAIT FOR 100 ns;
+			SW <= "100";
+			WAIT FOR 100 ns;
+			KEY(0) <= '0';
+			WAIT FOR 100 ns;
+			KEY(0) <= '1';
+			WAIT FOR 100 ns;
+		
+		WHEN 35 =>
+			SW <= "001";
+			WAIT FOR 100 ns;
+			btn_35a : FOR i IN 1 TO 2 GENERATE
+				KEY(0) <= '0';
+				WAIT FOR 100 ns;
+				KEY(0) <= '1';
+				WAIT FOR 100 ns;
+			END GENERATE btn_35a;
+			SW <= "100";
+			WAIT FOR 100 ns;
+			KEY(0) <= '0';
+			WAIT FOR 100 ns;
+			KEY(0) <= '1';
+			WAIT FOR 100 ns;
+
+			SW <= "010";
+			WAIT FOR 100 ns;
+			KEY(0) <= '0';
+			WAIT FOR 100 ns;
+			KEY(0) <= '1';
+			WAIT FOR 100 ns;
+			SW <= "100";
+			WAIT FOR 100 ns;
+			KEY(0) <= '0';
+			WAIT FOR 100 ns;
+			KEY(0) <= '1';
+			WAIT FOR 100 ns;
+		
+		WHEN 40 =>
+			SW <= "001";
+			WAIT FOR 100 ns;
+			btn_40a : FOR i IN 1 TO 3 GENERATE
+				KEY(0) <= '0';
+				WAIT FOR 100 ns;
+				KEY(0) <= '1';
+				WAIT FOR 100 ns;
+			END GENERATE btn_40a;
+			SW <= "100";
+			WAIT FOR 100 ns;
+			KEY(0) <= '0';
+			WAIT FOR 100 ns;
+			KEY(0) <= '1';
+			WAIT FOR 100 ns;
+
+			SW <= "001";
+			WAIT FOR 100 ns;
+			KEY(0) <= '0';
+			WAIT FOR 100 ns;
+			KEY(0) <= '1';
+			WAIT FOR 100 ns;
+			SW <= "010";
+			WAIT FOR 100 ns;
+			KEY(0) <= '0';
+			WAIT FOR 100 ns;
+			KEY(0) <= '1';
+			WAIT FOR 100 ns;
+			SW <= "100";
+			WAIT FOR 100 ns;
+			KEY(0) <= '0';
+			WAIT FOR 100 ns;
+			KEY(0) <= '1';
+			WAIT FOR 100 ns;
+		
+		WHEN 45 =>
+			SW <= "001";
+			WAIT FOR 100 ns;
+			btn_45a : FOR i IN 1 TO 4 GENERATE
+				KEY(0) <= '0';
+				WAIT FOR 100 ns;
+				KEY(0) <= '1';
+				WAIT FOR 100 ns;
+			END GENERATE btn_45a;
+			SW <= "100";
+			WAIT FOR 100 ns;
+			KEY(0) <= '0';
+			WAIT FOR 100 ns;
+			KEY(0) <= '1';
+			WAIT FOR 100 ns;
+
+			SW <= "010";
+			WAIT FOR 100 ns;
+			btn_45b : FOR i IN 1 TO 2 GENERATE
+				KEY(0) <= '0';
+				WAIT FOR 100 ns;
+				KEY(0) <= '1';
+				WAIT FOR 100 ns;
+			END GENERATE btn_45b;
+			SW <= "100";
+			WAIT FOR 100 ns;
+			KEY(0) <= '0';
+			WAIT FOR 100 ns;
+			KEY(0) <= '1';
+			WAIT FOR 100 ns;
+
+			SW <= "001";
+			WAIT FOR 100 ns;
+			btn_45a : FOR i IN 1 TO 2 GENERATE
+				KEY(0) <= '0';
+				WAIT FOR 100 ns;
+				KEY(0) <= '1';
+				WAIT FOR 100 ns;
+			END GENERATE btn_45a;
+			SW <= "010";
+			WAIT FOR 100 ns;
+			KEY(0) <= '0';
+			WAIT FOR 100 ns;
+			KEY(0) <= '1';
+			WAIT FOR 100 ns;
+			SW <= "100";
+			WAIT FOR 100 ns;
+			KEY(0) <= '0';
+			WAIT FOR 100 ns;
+			KEY(0) <= '1';
+			WAIT FOR 100 ns;
+
+		END CASE;
+		WAIT;                                                       
+	END PROCESS init;                                           
+	always : PROCESS                                              
+	-- optional sensitivity list                                  
+	-- (        )                                                 
+	-- variable declarations                                      
+	BEGIN                                                         
+			-- code executes for every event on sensitivity list  
+		clk : FOR i IN 1 to 64 GENERATE
+			CLOCK_50 <= '0';
+			WAIT FOR 50 ns;
+			CLOCK_50 <= '1';
+			WAIT FOR 50 ns;
+		END GENERATE clk;
+		WAIT;                                                        
+	END PROCESS always;                                          
 END vending_machine_arch;
